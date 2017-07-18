@@ -1,0 +1,47 @@
+---
+
+- name: Download binary tarball
+  get_url:
+    url: "http://ccb.jhu.edu/software/tophat/downloads/tophat-{{ VERSION }}.Linux_x86_64.tar.gz"
+    dest: "/tmp/tophat2.tar.gz"
+
+- name: Extract tarball
+  unarchive:
+    src: "/tmp/tophat2.tar.gz"
+    dest: "/tmp"
+    remote_src: yes
+
+- name: Move executables to path
+  copy:
+    remote_src: yes
+    src: "/tmp/tophat-{{ VERSION }}.Linux_x86_64/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+  with_items:
+    - "bam2fastx"
+    - "bam_merge"
+    - "bed_to_juncs"
+    - "contig_to_chr_coords"
+    - "fix_map_ordering"
+    - "gtf_juncs"
+    - "gtf_to_fasta"
+    - "juncs_db"
+    - "long_spanning_reads"
+    - "map2gtf"
+    - "prep_reads"
+    - "sam_juncs"
+    - "samtools_0.1.18"
+    - "segment_juncs"
+    - "sra_to_solid"
+    - "tophat"
+    - "tophat2"
+    - "tophat-fusion-post"
+    - "tophat_reports"
+
+- name: Remove temporary files
+  file:
+    state: absent
+    path: "{{ item }}"
+  with_items:
+    - "/tmp/tophat2.tar.gz"
+    - "/tmp/tophat-{{ VERSION }}.Linux_x86_64"
