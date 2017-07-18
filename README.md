@@ -1,6 +1,6 @@
-# ansible-cufflinks
+# ansible-tophat2
 
-Installs [Cufflinks](https://cole-trapnell-lab.github.io/cufflinks/)
+Installs [Tophat2](https://ccb.jhu.edu/software/tophat/index.shtml)
 
 ### Role Variables
 
